@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -15,5 +16,7 @@ func TestWatch(t *testing.T) {
 		go Watch(root, func(op string, file string) {
 			log.Println(op, file)
 		})
+		time.Sleep(time.Second * 2)
+		defer StopWatch()
 	})
 }

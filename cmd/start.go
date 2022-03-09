@@ -88,20 +88,15 @@ var startCmd = &cobra.Command{
 			service.Watch(config.Conf)
 		}
 
-		// with the alpha features
+		// 启用内测功能
 		if startAlpha {
-			for _, sock := range gou.Sockets {
+			for _, srv := range gou.Servers {
 				fmt.Println(color.WhiteString("\n---------------------------------"))
-				fmt.Println(color.WhiteString(sock.Name))
+				fmt.Println(color.WhiteString(srv.Name))
 				fmt.Println(color.WhiteString("---------------------------------"))
-				fmt.Println(color.GreenString("Mode: %s", sock.Mode))
-				fmt.Println(color.GreenString("Host: %s://%s", sock.Protocol, sock.Host))
-				fmt.Println(color.GreenString("Port: %s\n\n", sock.Port))
-				if sock.Mode == "server" {
-					go sock.Start()
-				} else if sock.Mode == "client" {
-					go sock.Connect()
-				}
+				fmt.Println(color.GreenString("Host: %s://%s", srv.Protocol, srv.Host))
+				fmt.Println(color.GreenString("Port: %s\n\n", srv.Port))
+				go srv.Start()
 			}
 		}
 
