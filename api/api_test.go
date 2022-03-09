@@ -5,7 +5,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/yaoapp/gou"
-	"github.com/yaoapp/gou/websocket"
 	"github.com/yaoapp/yao/config"
 )
 
@@ -21,12 +20,5 @@ func check(t *testing.T) {
 	for key := range gou.APIs {
 		keys = append(keys, key)
 	}
-
-	wskeys := []string{}
-	for key := range websocket.Upgraders {
-		wskeys = append(wskeys, key)
-	}
-
 	assert.Equal(t, 4, len(keys))
-	assert.Equal(t, 1, len(wskeys))
 }
