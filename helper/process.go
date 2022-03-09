@@ -27,8 +27,6 @@ func init() {
 	gou.RegisterProcessHandler("xiang.helper.MapDel", ProcessMapDel)
 	gou.RegisterProcessHandler("xiang.helper.MapMultiDel", ProcessMapMultiDel)
 
-	gou.RegisterProcessHandler("xiang.helper.HexToString", ProcessHexToString)
-
 	gou.RegisterProcessHandler("xiang.helper.StrConcat", ProcessStrConcat)
 
 	gou.RegisterProcessHandler("xiang.helper.Captcha", ProcessCaptcha)
@@ -66,7 +64,6 @@ func init() {
 
 	gou.RegisterProcessHandler("xiang.flow.Sleep", ProcessSleep)
 	gou.AliasProcess("xiang.flow.Sleep", "xiang.sys.Sleep")
-
 }
 
 // ProcessPrint xiang.helper.Print 打印语句
