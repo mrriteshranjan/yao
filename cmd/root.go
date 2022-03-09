@@ -105,25 +105,42 @@ func Execute() {
 	}
 }
 
-// Boot 设定配置
+// Boot 设定配置 (这个逻辑有 BUG )
 func Boot() {
-	root := config.Conf.Root
-	if appPath != "" {
-		r, err := filepath.Abs(appPath)
+
+	if envFile == "" && appPath != "" {
+		root, err := filepath.Abs(appPath)
 		if err != nil {
 			exception.New("Root error %s", 500, err.Error()).Throw()
 		}
-		root = r
-	}
-	if envFile != "" {
-		config.Conf = config.LoadFrom(envFile)
-	} else {
 		config.Conf = config.LoadFrom(filepath.Join(root, ".env"))
+		config.Conf.Root = root
+		if config.Conf.Mode == "production" {
+			config.Production()
+		} else if config.Conf.Mode == "development" {
+			config.Development()
+		}
+
+		return
 	}
 
-	if config.Conf.Mode == "production" {
-		config.Production()
-	} else if config.Conf.Mode == "development" {
-		config.Development()
+	if envFile != "" && appPath == "" { // 指定环境变量文件
+		// config.SetEnvFile(envFile)
+		config.Conf = config.LoadFrom(envFile)
+	}
+
+	if envFile != "" && appPath != "" {
+		root, err := filepath.Abs(appPath)
+		if err != nil {
+			exception.New("Root error %s", 500, err.Error()).Throw()
+		}
+		config.Conf = config.LoadFrom(envFile)
+		config.Conf.Root = root
+		if config.Conf.Mode == "production" {
+			config.Production()
+		} else if config.Conf.Mode == "development" {
+			config.Development()
+		}
+
 	}
 }
