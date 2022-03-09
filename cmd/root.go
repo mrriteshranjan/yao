@@ -143,4 +143,5 @@ func Boot() {
 		}
 
 	}
+	fmt.Println(root)
 }
