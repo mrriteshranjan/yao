@@ -148,6 +148,7 @@ jobs:
       - name: "Unzip"
         run: |
           unzip pr.zip
+<<<<<<< HEAD
           cat NR
           cat SHA
           echo HEAD=$(cat SHA) >> $GITHUB_ENV
@@ -157,6 +158,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ env.HEAD }}
+=======
+          ls -l
+>>>>>>> parent of 148738f (debug: workflow)
 
       - name: Setup ${{ matrix.db }}
         uses: ./.github/actions/setup-db
